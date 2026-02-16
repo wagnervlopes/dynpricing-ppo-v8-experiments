@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: >
+  If you use this experimental framework in your research, please cite it as follows.
+
+title: "DynPricing PPO V8 Experiments"
+type: software
+
+authors:
+  - family-names: Lopes
+    given-names: Wagner V.
+    affiliation: "Instituto Metrópole Digital – Universidade Federal do Rio Grande do Norte (UFRN)"
+
+abstract: >
+  Reproducible experimental framework for dynamic pricing in retail environments using
+  Deep Reinforcement Learning (Proximal Policy Optimization – PPO) with temporal demand
+  modeling. This repository contains the frozen V8 experimental configuration, including
+  the MDP environment, training scripts, baseline evaluation, and final result artifacts.
+
+keywords:
+  - dynamic pricing
+  - reinforcement learning
+  - deep reinforcement learning
+  - PPO
+  - LSTM
+  - retail analytics
+  - Markov Decision Process
+  - reproducibility
+
+license: "MIT"
+
+version: "1.0.0"
+date-released: 2026-02-16
+
+doi: 10.5281/zenodo.18664856
+
+repository-code: "https://github.com/wagnervlopes/dynpricing-ppo-v8-experiments"
+
+references:
+  - type: dataset
+    title: "DynPricing Dataset"
+    doi: 10.5281/zenodo.18664650
