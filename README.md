@@ -1,106 +1,171 @@
-# DynPricing PPO V8 Experiments
+DynPricing PPO V8 Experiments
 
-Reproducible experimental framework for dynamic pricing in retail using Deep Reinforcement Learning (Proximal Policy Optimization – PPO) with temporal demand modeling.
+Reproducible experimental framework for dynamic pricing in retail environments using Deep Reinforcement Learning (Proximal Policy Optimization – PPO) with temporal demand modeling.
 
-This repository contains the final experimental configuration (V8) used in the Master's dissertation:
+This repository contains the frozen experimental configuration (V8) corresponding to the final validated results presented in the Master's dissertation:
 
-**"Dynamic Pricing in Retail: A Reinforcement Learning Approach"**
+Dynamic Pricing in Retail: A Reinforcement Learning Approach.
 
----
+Persistent Identifiers (DOI)
 
-## 1. Dataset
+To ensure full scientific reproducibility and long-term archival preservation, both data and code are versioned and publicly archived via Zenodo.
 
-The dataset used in this experiment is publicly available and versioned with DOI:
-
+Dataset (processed data, splits, preprocessing pipeline):
 https://doi.org/10.5281/zenodo.18664650
 
-The dataset repository contains:
+Experimental Code (this repository – PPO V8 framework):
+https://doi.org/10.5281/zenodo.18664856
 
-- Processed chronological splits (train/validation/test)
-- Canonical preprocessing pipeline
-- Schema definition
-- Integrity verification (MD5 checksums)
+Both DOIs correspond to immutable releases and guarantee traceability of the exact experimental configuration used in the dissertation.
 
----
+1. Scientific Context
 
-## 2. Repository Structure
+Dynamic pricing in retail constitutes a sequential decision-making problem under uncertainty, where pricing actions influence future demand and revenue trajectories.
 
-configs/ Final hyperparameter configuration (PPO V8)
-envs/ Environment implementation (MDP formulation)
-scripts/ Training and evaluation scripts
-results/v8/ Final experimental outputs
+The problem is formalized as a Markov Decision Process (MDP), in which:
 
+The state space includes historical demand information, economic context variables, and pricing signals.
 
----
+The action space corresponds to continuous price adjustments.
 
-## 3. Experimental Configuration (V8)
+The reward function reflects cumulative revenue performance.
 
-The V8 configuration represents the final tuned model used in the dissertation.
+The transition dynamics are induced by the empirical retail dataset.
 
-Main characteristics:
+The PPO V8 configuration represents the final tuned policy validated against multiple baseline pricing strategies under identical environmental conditions.
 
-- PPO (Stable-Baselines3)
-- Continuous action space (price adjustments)
-- Temporal demand modeling
-- Evaluation against economic baseline policies
-- Identical environment across PPO and baselines
+2. Repository Structure
 
-Key files:
+configs/ – Final hyperparameter configuration (PPO V8)
+envs/ – MDP environment implementation
+scripts/ – Training and evaluation pipeline
+results/v8/ – Frozen experimental outputs (final results)
 
-- `configs/ppo_tuned_v8.yaml`
-- `results/v8/config_used.yaml`
-- `results/v8/command.txt`
+Key files include:
 
----
+configs/ppo_tuned_v8.yaml – Final PPO hyperparameters
 
-## 4. Reproducing the Experiment
+configs/calib.json – Calibration parameters
 
-### Step 1 – Install dependencies
+envs/simple_price_env_v8.py – Environment (MDP) definition
+
+scripts/train_ppo_sb3_v8.py – PPO training script
+
+scripts/run_baselines_v8.py – Baseline evaluation
+
+scripts/compare_ppo_vs_baselines_v8.py – Comparative evaluation
+
+results/v8/ppo_summary.csv – Final performance metrics
+
+results/v8/comparison_ppo_baselines.csv – PPO vs baseline comparison
+
+results/v8/best_model.zip – Frozen trained PPO model
+
+results/v8/config_used.yaml – Exact configuration used
+
+results/v8/command.txt – Execution command log
+
+3. Experimental Configuration (V8)
+
+The V8 configuration corresponds to the final validated experimental setup.
+
+Core characteristics:
+
+Algorithm: Proximal Policy Optimization (Stable-Baselines3 implementation)
+
+Continuous action space for price adjustments
+
+Chronological data split (train / validation / test)
+
+No temporal leakage
+
+Identical evaluation environment across PPO and baselines
+
+Frozen hyperparameter configuration
+
+Explicit execution log
+
+This version represents the definitive experimental state associated with the dissertation validation.
+
+4. ## Baseline Policies
+
+For comparative evaluation, deterministic and heuristic baseline policies were implemented within the same MDP structure used by PPO.
+
+Let the pricing problem be defined as:
+
+M = (S, A, P, R, γ)
+
+where S is the state space, A the continuous action space (price adjustments), P the transition dynamics, R the revenue-based reward function, and γ the discount factor.
+
+The PPO agent learns a policy πθ(a|s), while baseline policies are fixed mappings:
+
+π⁽ⁱ⁾ : S → A
+
+The following baselines were evaluated:
+
+- Constant Price Policy: aₜ = 0  
+- Fixed Markup Policy: pₜ = pₜ₋₁(1 + δ)  
+- Monthly DIEESE 1% Policy: pₜ = pₜ₋₁(1.01)  
+- Realistic Adjustment Band Policy  
+
+All policies were evaluated under identical environment dynamics, reward structure, and chronological data splits to ensure structural fairness.
+
+5. Reproducibility Protocol
+
+Step 1 – Install dependencies:
 
 pip install -r requirements.txt
 
-
-### Step 2 – Train PPO V8
+Step 2 – Train PPO V8:
 
 python scripts/train_ppo_sb3_v8.py
 
-
-### Step 3 – Run baseline policies
+Step 3 – Evaluate baseline policies:
 
 python scripts/run_baselines_v8.py
 
-
-### Step 4 – Compare PPO vs baselines
+Step 4 – Generate comparative analysis:
 
 python scripts/compare_ppo_vs_baselines_v8.py
 
+The resulting artifacts should match the contents stored in results/v8/.
 
----
+6. Final Experimental Results
 
-## 5. Final Results
+The final validated outputs are available in:
 
-The final experimental results are stored in:
+results/v8/ppo_summary.csv
 
-- `results/v8/ppo_summary.csv`
-- `results/v8/comparison_ppo_baselines.csv`
-- `results/v8/best_model.zip`
+results/v8/comparison_ppo_baselines.csv
 
-The PPO V8 model achieved superior performance relative to baseline pricing policies under identical environmental conditions.
+results/v8/best_model.zip
 
----
+The PPO V8 agent demonstrated superior cumulative revenue performance relative to multiple economically grounded baseline pricing strategies under identical MDP conditions.
 
-## 6. Reproducibility Notes
+7. Methodological Integrity
 
-- Chronological data split (no temporal leakage)
-- Training-only normalization (no information leakage)
-- Fixed configuration file
-- Explicit command log (`command.txt`)
-- Versioned dataset (DOI)
-- Versioned experiment (Git tag v1.0.0)
+The experimental protocol adheres to the following principles:
 
----
+Strict chronological partitioning
 
-## 7. License
+Training-only normalization
 
-This code is released for academic and research purposes.
+Fixed hyperparameter configuration
 
+Identical evaluation environment across policies
+
+Explicit command logging
+
+Immutable versioning via Git tags
+
+Archival via Zenodo DOI
+
+These elements ensure scientific reproducibility, transparency, and auditability.
+
+8. License
+
+This repository is made available for academic and research purposes. Refer to the LICENSE file for specific terms of use.
+
+Citation
+
+If this work contributes to academic research, please cite both the dataset and the experimental framework using their respective DOIs.
